@@ -1,0 +1,708 @@
+@import './styles/print.css';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap');
+
+/* ─── LIGHT THEME (default) ─── */
+:root {
+  --color-primary: #4C1D95;
+  --color-primary-soft: #7C3AED;
+  --color-accent: #D97706;
+  --color-accent-glow: rgba(217, 119, 6, 0.25);
+  --color-bg: #F8F5F0;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F5F3FF;
+  --color-text: #1E1B2E;
+  --color-subtext: #6B7280;
+  --color-border: #E8E0D8;
+  --color-selected-bg: #F0EBFF;
+  --color-card-shadow: 0 2px 16px rgba(76, 29, 149, 0.06);
+  --color-header-gradient: linear-gradient(135deg, #4C1D95 0%, #7C3AED 100%);
+  --color-gold-shimmer: linear-gradient(135deg, #D97706 0%, #F59E0B 50%, #D97706 100%);
+  --star-opacity: 0.12;
+}
+
+/* ─── DARK THEME ─── */
+[data-theme='dark'] {
+  --color-primary: #A78BFA;
+  --color-primary-soft: #7C3AED;
+  --color-accent: #FBBF24;
+  --color-accent-glow: rgba(251, 191, 36, 0.2);
+  --color-bg: #0F0D1A;
+  --color-surface: #1A1726;
+  --color-surface-hover: #251F35;
+  --color-text: #F1EEF8;
+  --color-subtext: #9CA3AF;
+  --color-border: #2D2640;
+  --color-selected-bg: rgba(167, 139, 250, 0.12);
+  --color-card-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
+  --color-header-gradient: linear-gradient(135deg, #1A1726 0%, #2D2640 100%);
+  --color-gold-shimmer: linear-gradient(135deg, #FBBF24 0%, #F59E0B 50%, #FBBF24 100%);
+  --star-opacity: 0.25;
+}
+
+/* ─── BASE ─── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Noto Sans Sinhala', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  min-height: 100vh;
+}
+
+/* Subtle star-like decorative dots on the background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  opacity: var(--star-opacity);
+  background-image:
+    radial-gradient(1.5px 1.5px at 10% 15%, var(--color-primary) 50%, transparent 50%),
+    radial-gradient(1px 1px at 30% 40%, var(--color-accent) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 55% 10%, var(--color-primary) 50%, transparent 50%),
+    radial-gradient(1px 1px at 70% 65%, var(--color-accent) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 85% 20%, var(--color-primary) 50%, transparent 50%),
+    radial-gradient(1px 1px at 20% 80%, var(--color-accent) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 45% 55%, var(--color-primary) 50%, transparent 50%),
+    radial-gradient(1px 1px at 90% 85%, var(--color-accent) 50%, transparent 50%);
+  z-index: 0;
+}
+
+.app-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── TOP BAR (holds the theme toggle) ─── */
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.75rem;
+}
+
+/* ─── THEME TOGGLE ─── */
+.theme-toggle {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-accent);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: var(--color-card-shadow);
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-surface-hover);
+  transform: rotate(20deg);
+}
+
+/* ─── UTILITIES ─── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ─── INSTITUTE HEADER ─── */
+.institute-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding: 1.25rem;
+  background: var(--color-header-gradient);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(76, 29, 149, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative celestial accent */
+.institute-header::after {
+  content: '✦';
+  position: absolute;
+  right: 1rem;
+  bottom: -0.25rem;
+  font-size: 4rem;
+  opacity: 0.08;
+  color: white;
+  pointer-events: none;
+}
+
+.icon-container {
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 14px !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FBBF24 !important;
+  flex-shrink: 0;
+}
+
+.institute-header .details h1 {
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: white !important;
+  margin: 0 0 0.15rem 0 !important;
+  letter-spacing: 0.01em;
+}
+
+.institute-header .details p {
+  font-size: 0.8rem !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  margin: 0 !important;
+  line-height: 1.4;
+}
+
+/* ─── SECTION DIVIDER (stars) ─── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  color: var(--color-accent);
+  font-size: 0.5rem;
+  opacity: 0.6;
+  letter-spacing: 0.5rem;
+}
+
+/* ─── FORM STYLES ─── */
+.bill-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.options-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--color-card-shadow);
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 1fr 90px 90px;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-subtext);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface-hover);
+}
+
+.table-header > span:first-child {
+  text-align: left;
+}
+
+.option-row {
+  display: grid;
+  grid-template-columns: 1fr 90px 90px;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.875rem 1rem;
+  transition: all 0.2s ease;
+  background-color: var(--color-surface);
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.option-row:last-child {
+  border-bottom: none;
+}
+
+.option-row:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.option-row.selected {
+  background-color: var(--color-selected-bg);
+  border-color: var(--color-border);
+}
+
+.option-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--color-text);
+}
+
+.radio-indicator {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface);
+  transition: all 0.2s ease;
+}
+
+.option-row.selected .radio-indicator {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  box-shadow: inset 0 0 0 3px var(--color-surface), 0 0 0 2px var(--color-primary);
+}
+
+.number-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--color-subtext);
+  pointer-events: none;
+}
+
+.number-input {
+  width: 100%;
+  padding: 0.5rem 0.5rem 0.5rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: left;
+  font-family: inherit;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.number-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(76, 29, 149, 0.1);
+}
+
+[data-theme='dark'] .number-input:focus {
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-subtext);
+  padding-left: 0.125rem;
+}
+
+.text-input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  min-height: 48px;
+  outline: none;
+  box-shadow: var(--color-card-shadow);
+  transition: all 0.2s ease;
+}
+
+.text-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(76, 29, 149, 0.1);
+}
+
+[data-theme='dark'] .text-input:focus {
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.15);
+}
+
+/* ─── BUTTONS ─── */
+.primary-button {
+  width: 100%;
+  padding: 1rem;
+  background: var(--color-gold-shimmer);
+  background-size: 200% 100%;
+  color: #1E1B2E;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  min-height: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px var(--color-accent-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-button::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+  transition: left 0.5s ease;
+}
+
+.primary-button:hover::before {
+  left: 100%;
+}
+
+.primary-button:active {
+  transform: scale(0.98);
+}
+
+.primary-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.primary-button:disabled::before {
+  display: none;
+}
+
+.secondary-button {
+  width: 100%;
+  padding: 0.875rem;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  min-height: 48px;
+  transition: all 0.2s ease;
+  box-shadow: var(--color-card-shadow);
+}
+
+.secondary-button:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+/* ═══════════════════════════════════
+   BILL PREVIEW / PDF TEMPLATE  
+   ═══════════════════════════════════ */
+.bill-preview-screen {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bill-paper {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-shadow: var(--color-card-shadow), 0 1px 0 var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top ornamental band */
+.bill-top-band {
+  height: 8px;
+  background: var(--color-header-gradient);
+}
+
+.bill-body {
+  padding: 2rem 1.5rem;
+}
+
+/* Bill header (institute info in the bill) */
+.bill-institute {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.bill-institute-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-header-gradient);
+  color: #FBBF24;
+  margin-bottom: 0.75rem;
+}
+
+.bill-institute-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 0.25rem 0;
+}
+
+.bill-institute-address,
+.bill-institute-phone {
+  font-size: 0.8rem;
+  color: var(--color-subtext);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Ornamental divider */
+.bill-ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.bill-ornament-line {
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.bill-ornament-star {
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* Customer details */
+.bill-info-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--color-bg);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+}
+
+.bill-info-label {
+  font-size: 0.8rem;
+  color: var(--color-subtext);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.bill-info-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: right;
+}
+
+/* Service / Amount section */
+.bill-service-card {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.bill-service-header {
+  padding: 0.875rem 1rem;
+  background: var(--color-surface-hover);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bill-service-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-subtext);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.bill-service-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.bill-amounts {
+  display: flex;
+  flex-direction: column;
+}
+
+.bill-amount-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bill-amount-row:last-child {
+  border-bottom: none;
+}
+
+.bill-amount-name {
+  font-size: 0.875rem;
+  color: var(--color-subtext);
+}
+
+.bill-amount-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.bill-amount-row.total-row {
+  background: var(--color-selected-bg);
+}
+
+.bill-amount-row.total-row .bill-amount-name {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.bill-amount-row.total-row .bill-amount-value {
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
+
+/* Footer */
+.bill-footer {
+  text-align: center;
+  margin-top: 1.75rem;
+  padding-top: 1rem;
+}
+
+.bill-footer-stars {
+  color: var(--color-accent);
+  font-size: 0.65rem;
+  letter-spacing: 0.4rem;
+  opacity: 0.5;
+  margin-bottom: 0.5rem;
+}
+
+.bill-footer-text {
+  font-size: 0.8rem;
+  color: var(--color-subtext);
+  font-style: italic;
+}
+
+/* ─── PRINT STYLES (in-file for bill overrides) ─── */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  body::before {
+    display: none !important;
+  }
+  .app-container {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .bill-paper {
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  .bill-top-band {
+    background: #333 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .bill-institute-icon {
+    background: #333 !important;
+    color: #D97706 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .bill-institute-name,
+  .bill-info-value,
+  .bill-amount-value,
+  .bill-amount-row.total-row .bill-amount-value {
+    color: black !important;
+  }
+  .bill-institute-address,
+  .bill-institute-phone,
+  .bill-info-label,
+  .bill-service-label,
+  .bill-amount-name,
+  .bill-footer-text {
+    color: #555 !important;
+  }
+  .bill-service-name,
+  .bill-amount-row.total-row .bill-amount-name {
+    color: #333 !important;
+  }
+  .bill-info-grid {
+    background: #f9f9f9 !important;
+    border-color: #ddd !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .bill-service-header {
+    background: #f5f5f5 !important;
+    border-color: #ddd !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .bill-amount-row.total-row {
+    background: #f0f0f0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .bill-ornament-line {
+    background: #ccc !important;
+  }
+}
