@@ -12,7 +12,7 @@ export const InstituteHeader: React.FC = () => {
         <div className="details">
           <h1>{instituteInfo.name}</h1>
           <p>{instituteInfo.address}</p>
-          <p>අංකය: {instituteInfo.phone}</p>
+          <p>දුර: {instituteInfo.phone}</p>
         </div>
       </div>
       <div className="section-divider" aria-hidden="true">

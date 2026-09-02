@@ -11,10 +11,10 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
   const [customerName, setCustomerName] = useState<string>('');
   
   // 4 constant variables for the total amount of each option
-  const TOTAL_AMOUNT_1 = 2500;  // Total for 1st option
-  const TOTAL_AMOUNT_2 = 1000;  // Total for 2nd option
-  const TOTAL_AMOUNT_3 = 5500;  // Total for 3rd option
-  const TOTAL_AMOUNT_4 = 25000; // Total for 4th option
+  const TOTAL_AMOUNT_JANMA = 2500;  // Total for 1st option
+  const TOTAL_AMOUNT_PALAPALA = 1000;  // Total for 2nd option
+  const TOTAL_AMOUNT_MANGALA_NAKATH = 5500;  // Total for 3rd option
+  const TOTAL_AMOUNT_NIWASA = 25000; // Total for 4th option
 
   // Track custom advance and balance for each option
   const [amounts, setAmounts] = useState<Record<string, { advance: string, balance: string }>>(() => {
@@ -40,15 +40,15 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
         const optionIndex = serviceOptions.findIndex(opt => opt.id === optionId);
         
         let totalAmount = 0;
-        if (optionIndex === 0) totalAmount = TOTAL_AMOUNT_1;
-        else if (optionIndex === 1) totalAmount = TOTAL_AMOUNT_2;
-        else if (optionIndex === 2) totalAmount = TOTAL_AMOUNT_3;
-        else if (optionIndex === 3) totalAmount = TOTAL_AMOUNT_4;
+        if (optionIndex === 0) totalAmount = TOTAL_AMOUNT_JANMA;
+        else if (optionIndex === 1) totalAmount = TOTAL_AMOUNT_PALAPALA;
+        else if (optionIndex === 2) totalAmount = TOTAL_AMOUNT_MANGALA_NAKATH;
+        else if (optionIndex === 3) totalAmount = TOTAL_AMOUNT_NIWASA;
 
         const advanceNum = parseFloat(numericValue);
         if (!isNaN(advanceNum)) {
           const calculatedBalance = totalAmount - advanceNum;
-          updatedBalance = calculatedBalance >= 0 ? calculatedBalance.toString() : '0';
+          updatedBalance = calculatedBalance.toString() 
         } else {
           updatedBalance = '';
         }
@@ -145,7 +145,7 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
       </div>
 
       <div className="input-group">
-        <label htmlFor="customerName" className="input-label">පාරිභෝගිකයාගේ නම</label>
+        <label htmlFor="customerName" className="input-label">නම: </label>
         <input
           id="customerName"
           type="text"

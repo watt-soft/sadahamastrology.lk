@@ -127,6 +127,8 @@ body::before {
 .institute-header {
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: 1rem;
   margin-bottom: 1.75rem;
   padding: 1.25rem;
@@ -162,12 +164,20 @@ body::before {
   flex-shrink: 0;
 }
 
+.institute-header .details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .institute-header .details h1 {
   font-size: 1.15rem !important;
   font-weight: 700 !important;
   color: white !important;
   margin: 0 0 0.15rem 0 !important;
   letter-spacing: 0.01em;
+  text-align: center;
 }
 
 .institute-header .details p {
@@ -175,6 +185,7 @@ body::before {
   color: rgba(255, 255, 255, 0.75) !important;
   margin: 0 !important;
   line-height: 1.4;
+  text-align: center;
 }
 
 /* ─── SECTION DIVIDER (stars) ─── */
