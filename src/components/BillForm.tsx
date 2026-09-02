@@ -10,6 +10,12 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
   const [selectedOptionId, setSelectedOptionId] = useState<string>('');
   const [customerName, setCustomerName] = useState<string>('');
   
+  // 4 constant variables for the total amount of each option
+  const TOTAL_AMOUNT_1 = 2500;  // Total for 1st option
+  const TOTAL_AMOUNT_2 = 1000;  // Total for 2nd option
+  const TOTAL_AMOUNT_3 = 5500;  // Total for 3rd option
+  const TOTAL_AMOUNT_4 = 25000; // Total for 4th option
+
   // Track custom advance and balance for each option
   const [amounts, setAmounts] = useState<Record<string, { advance: string, balance: string }>>(() => {
     const initialAmounts: Record<string, { advance: string, balance: string }> = {};
@@ -20,13 +26,43 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
   });
 
   const handleAmountChange = (optionId: string, field: 'advance' | 'balance', value: string) => {
-    setAmounts(prev => ({
-      ...prev,
-      [optionId]: {
-        ...prev[optionId],
-        [field]: value
+  
+    // Only numbers are accepted, remove any non-numeric characters
+  const numericValue = value.replace(/\D/g, '');
+
+    setAmounts(prev => {
+      let updatedAdvance = field === 'advance' ? numericValue : prev[optionId].advance;
+      let updatedBalance = field === 'balance' ? numericValue : prev[optionId].balance;
+
+      // Automatically calculate balance when advance is typed
+      if (field === 'advance') {
+        // Match 4 constant variables
+        const optionIndex = serviceOptions.findIndex(opt => opt.id === optionId);
+        
+        let totalAmount = 0;
+        if (optionIndex === 0) totalAmount = TOTAL_AMOUNT_1;
+        else if (optionIndex === 1) totalAmount = TOTAL_AMOUNT_2;
+        else if (optionIndex === 2) totalAmount = TOTAL_AMOUNT_3;
+        else if (optionIndex === 3) totalAmount = TOTAL_AMOUNT_4;
+
+        const advanceNum = parseFloat(numericValue);
+        if (!isNaN(advanceNum)) {
+          const calculatedBalance = totalAmount - advanceNum;
+          updatedBalance = calculatedBalance >= 0 ? calculatedBalance.toString() : '0';
+        } else {
+          updatedBalance = '';
+        }
       }
-    }));
+
+      return {
+        ...prev,
+        [optionId]: {
+          advance: updatedAdvance,
+          balance: updatedBalance
+        }
+      };
+    });
+
     // Auto-select option if they are typing in it
     if (selectedOptionId !== optionId) {
       setSelectedOptionId(optionId);
