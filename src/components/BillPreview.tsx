@@ -30,7 +30,7 @@ export const BillPreview: React.FC<BillPreviewProps> = ({ data, onBack }) => {
             </div>
             <h2 className="bill-institute-name">{instituteInfo.name}</h2>
             <p className="bill-institute-address">{instituteInfo.address}</p>
-            <p className="bill-institute-phone">අංකය: {instituteInfo.phone}</p>
+            <p className="bill-institute-phone">දුර: {instituteInfo.phone}</p>
           </div>
 
           {/* Ornamental divider */}
@@ -44,7 +44,7 @@ export const BillPreview: React.FC<BillPreviewProps> = ({ data, onBack }) => {
           <div className="bill-info-grid">
             <span className="bill-info-label">දිනය:</span>
             <span className="bill-info-value">{data.date}</span>
-            <span className="bill-info-label">පාරිභෝගිකයා:</span>
+            <span className="bill-info-label">නම:</span>
             <span className="bill-info-value">{data.customerName}</span>
           </div>
 
