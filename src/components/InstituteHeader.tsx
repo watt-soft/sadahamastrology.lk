@@ -11,8 +11,8 @@ export const InstituteHeader: React.FC = () => {
         </div>
         <div className="details">
           <h1>{instituteInfo.name}</h1>
-          <p>{instituteInfo.address}</p>
-          <p>දුර: {instituteInfo.phone}</p>
+          <p style={{ textAlign: 'right', alignSelf: 'flex-end', width: '100%' }}>{instituteInfo.address}</p>
+          <p style={{ textAlign: 'right', alignSelf: 'flex-end', width: '100%' }}>දුර: {instituteInfo.phone}</p>
         </div>
       </div>
       <div className="section-divider" aria-hidden="true">
