@@ -1,5 +1,5 @@
 import React from 'react';
-import { Moon, Printer, ArrowLeft } from 'lucide-react';
+import { Printer, ArrowLeft } from 'lucide-react';
 import type { BillData } from '../types';
 import { instituteInfo } from '../data/instituteInfo';
 
@@ -26,7 +26,7 @@ export const BillPreview: React.FC<BillPreviewProps> = ({ data, onBack }) => {
           {/* Institute Info */}
           <div className="bill-institute">
             <div className="bill-institute-icon">
-              <Moon size={18} />
+              <img src="/logo-sub.png" alt="Sadaham Astrology" className="bill-crest-img" />
             </div>
             <h2 className="bill-institute-name">{instituteInfo.name}</h2>
             <p className="bill-institute-address">{instituteInfo.address}</p>
@@ -80,16 +80,16 @@ export const BillPreview: React.FC<BillPreviewProps> = ({ data, onBack }) => {
 
       {/* Action buttons — hidden on print */}
       <div className="action-buttons no-print">
-        <button className="primary-button" onClick={handlePrint}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Printer size={18} />
-            මුද්‍රණය කරන්න
+        <button className="primary-button print-button" onClick={handlePrint}>
+          <span className="button-inner">
+            <Printer size={19} />
+            <span>මුද්‍රණය කරන්න</span>
           </span>
         </button>
-        <button className="secondary-button" onClick={onBack}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-            <ArrowLeft size={18} />
-            ආපසු
+        <button className="secondary-button back-button" onClick={onBack}>
+          <span className="button-inner">
+            <ArrowLeft size={19} />
+            <span>ආපසු</span>
           </span>
         </button>
       </div>

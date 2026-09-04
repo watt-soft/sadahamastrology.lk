@@ -8,7 +8,7 @@ import type { BillData } from './types';
 function App() {
   const [view, setView] = useState<'form' | 'preview'>('form');
   const [billData, setBillData] = useState<BillData | null>(null);
-  
+
   // Check local storage or system preference for initial theme
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('app-theme');
@@ -36,11 +36,19 @@ function App() {
 
   return (
     <div className="app-container">
-      <div className="top-bar no-print">
-        <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-          {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+      <header className="top-bar no-print">
+        <div className="brand-badge">
+          <img src="/logo-main.png" alt="Sadaham Astrology" className="brand-logo-img" />
+        </div>
+        <button
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label={theme === 'light' ? "Switch to dark mode" : "Switch to light mode"}
+          title={theme === 'light' ? "රාත්‍රී මාදිලිය" : "දිවා මාදිලිය"}
+        >
+          {theme === 'light' ? <Moon size={19} /> : <Sun size={19} />}
         </button>
-      </div>
+      </header>
 
       {view === 'form' ? (
         <>

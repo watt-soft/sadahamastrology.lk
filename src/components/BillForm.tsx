@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FileText } from 'lucide-react';
 import { serviceOptions } from '../data/serviceOptions';
 import type { BillData } from '../types';
 
@@ -9,7 +10,7 @@ interface BillFormProps {
 export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
   const [selectedOptionId, setSelectedOptionId] = useState<string>('');
   const [customerName, setCustomerName] = useState<string>('');
-  
+
   // 4 constant variables for the total amount of each option
   const TOTAL_AMOUNT_JANMA = 2500;  // Total for 1st option
   const TOTAL_AMOUNT_PALAPALA = 1000;  // Total for 2nd option
@@ -26,9 +27,9 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
   });
 
   const handleAmountChange = (optionId: string, field: 'advance' | 'balance', value: string) => {
-  
+
     // Only numbers are accepted, remove any non-numeric characters
-  const numericValue = value.replace(/\D/g, '');
+    const numericValue = value.replace(/\D/g, '');
 
     setAmounts(prev => {
       let updatedAdvance = field === 'advance' ? numericValue : prev[optionId].advance;
@@ -38,7 +39,7 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
       if (field === 'advance') {
         // Match 4 constant variables
         const optionIndex = serviceOptions.findIndex(opt => opt.id === optionId);
-        
+
         let totalAmount = 0;
         if (optionIndex === 0) totalAmount = TOTAL_AMOUNT_JANMA;
         else if (optionIndex === 1) totalAmount = TOTAL_AMOUNT_PALAPALA;
@@ -48,7 +49,7 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
         const advanceNum = parseFloat(numericValue);
         if (!isNaN(advanceNum)) {
           const calculatedBalance = totalAmount - advanceNum;
-          updatedBalance = calculatedBalance.toString() 
+          updatedBalance = calculatedBalance.toString()
         } else {
           updatedBalance = '';
         }
@@ -95,13 +96,13 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
     <form onSubmit={handleSubmit} className="bill-form">
       <div className="options-table" role="radiogroup" aria-label="Service Options">
         <div className="table-header">
-          <span></span>
-          <span>අත්තිකාරම්</span>
-          <span>ශේෂය</span>
+          <span className="col-service">සේවාව</span>
+          <span className="col-advance">අත්තිකාරම්</span>
+          <span className="col-balance">ශේෂය</span>
         </div>
         {serviceOptions.map((opt) => (
-          <label 
-            key={opt.id} 
+          <label
+            key={opt.id}
             className={`option-row ${selectedOptionId === opt.id ? 'selected' : ''}`}
           >
             <input
@@ -113,28 +114,32 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
               className="sr-only"
             />
             <div className="option-label">
-              <span className="radio-indicator"></span>
-              {opt.label}
+              <span className="radio-indicator" aria-hidden="true"></span>
+              <span className="option-text">{opt.label}</span>
             </div>
-            
+
             <div className="number-input-wrapper">
-              <span className="currency-symbol">රු.</span>
-              <input 
-                type="text" 
+              <span className="currency-symbol" aria-hidden="true">රු.</span>
+              <input
+                type="text"
                 inputMode="numeric"
                 className="number-input"
+                placeholder="0"
+                aria-label={`${opt.label} අත්තිකාරම්`}
                 value={amounts[opt.id]?.advance || ''}
                 onChange={(e) => handleAmountChange(opt.id, 'advance', e.target.value)}
                 onClick={() => setSelectedOptionId(opt.id)}
               />
             </div>
-            
+
             <div className="number-input-wrapper">
-              <span className="currency-symbol">රු.</span>
-              <input 
-                type="text" 
+              <span className="currency-symbol" aria-hidden="true">රු.</span>
+              <input
+                type="text"
                 inputMode="numeric"
                 className="number-input"
+                placeholder="0"
+                aria-label={`${opt.label} ශේෂය`}
                 value={amounts[opt.id]?.balance || ''}
                 onChange={(e) => handleAmountChange(opt.id, 'balance', e.target.value)}
                 onClick={() => setSelectedOptionId(opt.id)}
@@ -145,24 +150,36 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
       </div>
 
       <div className="input-group">
-        <label htmlFor="customerName" className="input-label">නම: </label>
-        <input
-          id="customerName"
-          type="text"
-          placeholder="උදා. නිමල් පෙරේරා"
-          value={customerName}
-          onChange={(e) => setCustomerName(e.target.value)}
-          aria-label="Customer name"
-          className="text-input"
-        />
+        <label htmlFor="customerName" className="input-label">
+          <span>පාරිභෝගිකයාගේ නම</span>
+          <span className="required-marker" aria-hidden="true">*</span>
+        </label>
+        <div className="text-input-wrapper">
+          <input
+            id="customerName"
+            type="text"
+            placeholder="උදා: නිමල් පෙරේරා"
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+            autoComplete="name"
+            enterKeyHint="done"
+            spellCheck="false"
+            aria-label="පාරිභෝගිකයාගේ නම"
+            required
+            className="text-input"
+          />
+        </div>
       </div>
 
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         disabled={!isFormValid}
-        className="primary-button"
+        className="primary-button generate-button"
       >
-        බිල්පත සාදන්න
+        <span className="button-inner">
+          <FileText size={19} />
+          <span>බිල්පත සාදන්න</span>
+        </span>
       </button>
     </form>
   );
