@@ -1,0 +1,21 @@
+{
+  "name": "Sadaham Astrology",
+  "short_name": "Sadaham",
+  "description": "Sadaham Astrology - Vedic astrology knowledge, guidance and services.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4C1D95",
+  "theme_color": "#4C1D95",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
