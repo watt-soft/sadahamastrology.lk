@@ -1,7 +1,11 @@
 export interface InstituteInfo {
   name: string;
+  credentials: string[];
+  astrologerName: string;
+  astrologerSubtitle: string;
   address: string;
   phone: string;
+  email: string;
 }
 
 export interface ServiceOption {

@@ -151,7 +151,7 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
 
       <div className="input-group">
         <label htmlFor="customerName" className="input-label">
-          <span>පාරිභෝගිකයාගේ නම</span>
+          <span>නම:</span>
           <span className="required-marker" aria-hidden="true">*</span>
         </label>
         <div className="text-input-wrapper">
