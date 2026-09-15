@@ -41,7 +41,7 @@ function App() {
           <img src="/logo-main.png" alt="Sadaham Astrology" className="brand-logo-img" />
         </div>
         <button
-          className="theme-toggle"
+          className={`theme-toggle ${theme}`}
           onClick={toggleTheme}
           aria-label={theme === 'light' ? "Switch to dark mode" : "Switch to light mode"}
           title={theme === 'light' ? "රාත්‍රී මාදිලිය" : "දිවා මාදිලිය"}

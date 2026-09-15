@@ -10,4 +10,13 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+
+  .app-container:has(.theme-toggle.dark) {
+    --color-bg: #fff;
+    --color-surface: #fff;
+    --color-surface-hover: #f8f8f8;
+    --color-text: #1e1b2e;
+    --color-subtext: #6b7280;
+    --color-border: #e8e0d8;
+  }
 }
