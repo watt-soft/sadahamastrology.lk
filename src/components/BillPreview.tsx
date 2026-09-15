@@ -29,8 +29,16 @@ export const BillPreview: React.FC<BillPreviewProps> = ({ data, onBack }) => {
               <img src="/logo-sub.png" alt="Sadaham Astrology" className="bill-crest-img" />
             </div>
             <h2 className="bill-institute-name">{instituteInfo.name}</h2>
+            <div className="bill-astrologer-credentials">
+              {instituteInfo.credentials.map((credential) => (
+                <span key={credential}>{credential}</span>
+              ))}
+            </div>
+            <h3 className="bill-astrologer-name">{instituteInfo.astrologerName}</h3>
+            <span className="bill-astrologer-subtitle">{instituteInfo.astrologerSubtitle}</span>
             <p className="bill-institute-address">{instituteInfo.address}</p>
             <p className="bill-institute-phone">දුර: {instituteInfo.phone}</p>
+            <p className="bill-institute-email">{instituteInfo.email}</p>
           </div>
 
           {/* Ornamental divider */}
