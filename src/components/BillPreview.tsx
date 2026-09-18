@@ -81,7 +81,7 @@ export const BillPreview: React.FC<BillPreviewProps> = ({ data, onBack }) => {
           {/* Footer */}
           <div className="bill-footer">
             <div className="bill-footer-stars" aria-hidden="true">✦ ✦ ✦ ✦ ✦</div>
-            <p className="bill-footer-text">ස්තුතියි!</p>
+            <p className="bill-footer-text">තෙරුවන් සරණයි !</p>
           </div>
         </div>
       </div>
