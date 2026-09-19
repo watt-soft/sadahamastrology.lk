@@ -40,6 +40,9 @@ function App() {
         <div className="brand-badge">
           <img src="/logo-main.png" alt="Sadaham Astrology" className="brand-logo-img" />
         </div>
+        <div className="top-bar-center-logo">
+          <img src="/logo-sub.png" alt="Sadaham Astrology" className="top-bar-sub-logo-img" />
+        </div>
         <button
           className={`theme-toggle ${theme}`}
           onClick={toggleTheme}
