@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FileText } from 'lucide-react';
 import { serviceOptions } from '../data/serviceOptions';
 import type { BillData } from '../types';
@@ -10,6 +10,7 @@ interface BillFormProps {
 export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
   const [selectedOptionId, setSelectedOptionId] = useState<string>('');
   const [customerName, setCustomerName] = useState<string>('');
+  const advanceInputRefs = useRef<Record<string, HTMLInputElement | null>>({});
 
   // 4 constant variables for the total amount of each option
   const TOTAL_AMOUNT_JANMA = 2500;  // Total for 1st option
@@ -70,6 +71,11 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
     }
   };
 
+  const selectOptionAndFocusAdvance = (optionId: string) => {
+    setSelectedOptionId(optionId);
+    advanceInputRefs.current[optionId]?.focus();
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const option = serviceOptions.find(opt => opt.id === selectedOptionId);
@@ -110,7 +116,7 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
               name="serviceOption"
               value={opt.id}
               checked={selectedOptionId === opt.id}
-              onChange={(e) => setSelectedOptionId(e.target.value)}
+              onChange={() => selectOptionAndFocusAdvance(opt.id)}
               className="sr-only"
             />
             <div className="option-label">
@@ -129,6 +135,7 @@ export const BillForm: React.FC<BillFormProps> = ({ onGenerate }) => {
                 value={amounts[opt.id]?.advance || ''}
                 onChange={(e) => handleAmountChange(opt.id, 'advance', e.target.value)}
                 onClick={() => setSelectedOptionId(opt.id)}
+                ref={(el) => { advanceInputRefs.current[opt.id] = el; }}
               />
             </div>
 
